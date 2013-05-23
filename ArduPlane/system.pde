@@ -332,6 +332,7 @@ static void set_mode(enum FlightMode mode)
     case STABILIZE:
     case TRAINING:
     case FLY_BY_WIRE_A:
+    case TERMINATING:
         break;
 
     case FLY_BY_WIRE_B:

@@ -773,7 +773,7 @@ static void fast_loop()
 
     // apply desired roll, pitch and yaw to the plane
     // ----------------------------------------------
-    if (control_mode > MANUAL)
+    if (control_mode != MANUAL || control_mode != TERMINATING)
         stabilize();
 
     // write out the servo PWM values
@@ -1227,6 +1227,13 @@ static void update_current_flight_mode(void)
             break;
             //roll: -13788.000,  pitch: -13698.000,   thr: 0.000, rud: -13742.000
 
+        case TERMINATING:
+            //g.channel_throttle.servo_out = 0;
+            //g.channel_roll.set_pwm(1000);
+            //g.channel_pitch.set_pwm(2000);
+            //g.channel_rudder.servo_out = 1000;
+            break;
+
         case INITIALISING:
         case AUTO:
             // handled elsewhere
@@ -1259,6 +1266,7 @@ static void update_navigation()
     case FLY_BY_WIRE_A:
     case FLY_BY_WIRE_B:
     case CIRCLE:
+    case TERMINATING:
         // nothing to do
         break;
     }

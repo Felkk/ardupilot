@@ -615,6 +615,13 @@ static void set_servos(void)
         }
 #endif
         
+        if(control_mode == TERMINATING)
+        {
+            g.channel_roll.servo_out = 4500;
+            g.channel_pitch.servo_out = 4500;
+            g.channel_rudder.servo_out = 4500;
+            g.channel_throttle.servo_out = 0;
+        }
 
         // push out the PWM values
         if (g.mix_mode == 0) {

@@ -14,14 +14,14 @@ static void failsafe_short_on_event(int16_t fstype)
     case FLY_BY_WIRE_A:
     case FLY_BY_WIRE_B:
     case TRAINING:
-        set_mode(CIRCLE);
+        set_mode(TERMINATING);
         break;
 
     case AUTO:
     case GUIDED:
     case LOITER:
         if(g.short_fs_action == 1) {
-            set_mode(RTL);
+            set_mode(TERMINATING);
         }
         break;
 
@@ -48,18 +48,19 @@ static void failsafe_long_on_event(int16_t fstype)
     case FLY_BY_WIRE_B:
     case TRAINING:
     case CIRCLE:
-        set_mode(RTL);
+        set_mode(TERMINATING);
         break;
 
     case AUTO:
     case GUIDED:
     case LOITER:
+    case RTL:
         if(g.long_fs_action == 1) {
-            set_mode(RTL);
+            set_mode(TERMINATING);
         }
         break;
 
-    case RTL:
+    
     default:
         break;
     }

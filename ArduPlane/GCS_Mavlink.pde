@@ -52,6 +52,7 @@ static NOINLINE void send_heartbeat(mavlink_channel_t chan)
     case LOITER:
     case GUIDED:
     case CIRCLE:
+    case TERMINATING:
         base_mode = MAV_MODE_FLAG_GUIDED_ENABLED |
                     MAV_MODE_FLAG_STABILIZE_ENABLED;
         // note that MAV_MODE_FLAG_AUTO_ENABLED does not match what
@@ -154,6 +155,7 @@ static NOINLINE void send_extended_status1(mavlink_channel_t chan, uint16_t pack
 
     switch (control_mode) {
     case MANUAL:
+    case TERMINATING:
         break;
 
     case STABILIZE:
