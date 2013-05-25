@@ -14,14 +14,14 @@ static void failsafe_short_on_event(int16_t fstype)
     case FLY_BY_WIRE_A:
     case FLY_BY_WIRE_B:
     case TRAINING:
-        set_mode(TERMINATING);
+        set_mode(RTL);
         break;
 
     case AUTO:
     case GUIDED:
     case LOITER:
         if(g.short_fs_action == 1) {
-            set_mode(TERMINATING);
+            set_mode(RTL);
         }
         break;
 
