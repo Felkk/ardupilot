@@ -76,7 +76,7 @@ static void failsafe_short_off_event()
     // re-read the switch so we can return to our preferred mode
     // --------------------------------------------------------
     if (control_mode == CIRCLE ||
-        (g.short_fs_action == 1 && control_mode == RTL)) {
+        (g.short_fs_action == 1 && ( control_mode == RTL || control_mode == TERMINATING ))) {
         reset_control_switch();
     }
 }

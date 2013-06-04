@@ -411,16 +411,29 @@ static void check_long_failsafe()
 
 static void check_short_failsafe()
 {
+    uint32_t tnow = millis();
     // only act on changes
     // -------------------
     if(failsafe == FAILSAFE_NONE) {
         if(ch3_failsafe) {                                              // The condition is checked and the flag ch3_failsafe is set in radio.pde
             failsafe_short_on_event(FAILSAFE_SHORT);
         }
+
+        if (g.gcs_heartbeat_fs_enabled && 
+            last_heartbeat_ms != 0 &&
+            (tnow - last_heartbeat_ms) > FAILSAFE_SHORT_TIME) {
+            failsafe_short_on_event(FAILSAFE_GCS);
+        }
+
     }
 
-    if(failsafe == FAILSAFE_SHORT) {
+    if(failsafe == FAILSAFE_SHORT || failsafe == FAILSAFE_GCS) {
         if(!ch3_failsafe) {
+            failsafe_short_off_event();
+        }
+
+        if (failsafe == FAILSAFE_GCS && 
+            (tnow - last_heartbeat_ms) < FAILSAFE_SHORT_TIME) {
             failsafe_short_off_event();
         }
     }
